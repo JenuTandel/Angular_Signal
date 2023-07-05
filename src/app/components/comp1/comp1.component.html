@@ -1,0 +1,93 @@
+<div>
+  <!-- start: example 1 - signal, computed -->
+  <form class="dataForm">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="firstname"
+      [value]="firstname()"
+      #fname
+    />
+    <button type="button" (click)="onFirstname(fname.value)">Click</button>
+    <input
+      type="text"
+      class="form-control"
+      placeholder="lastname"
+      [value]="lastname()"
+      #lname
+    />
+    <button type="button" (click)="onLastname(lname.value)">Click</button>
+  </form>
+
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th>FirstName</th>
+          <th>LastName</th>
+          <th>FullName</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ firstname() }}</td>
+          <td>{{ lastname() }}</td>
+          <td>{{ fullname() }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- end: example 1 -->
+  <!-- start: example 2 - update -->
+  <div class="mt-3">
+    <span class="icon m-2" (click)="decreaseQty()"> - </span>
+    <span>{{ qty() }}</span>
+    <span class="icon m-2" (click)="increaseQty()"> + </span>
+  </div>
+  <!-- end: example 2-->
+  <!-- start: example 3 - mutate -->
+  <div>
+    <button type="button" class="btn btn-warning" (click)="addUser()">
+      Add User
+    </button>
+    <h4>User Data</h4>
+    <form class="dataForm" [formGroup]="userForm" *ngIf="adduser">
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="Name"
+        formControlName="name"
+      />
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="Contact Number"
+        formControlName="contactNumber"
+      />
+      <input
+        type="text"
+        class="form-control mb-3"
+        placeholder="Age"
+        formControlName="age"
+      />
+      <button type="button" (click)="addUserData()">Add</button>
+    </form>
+    <table class="table userTable">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Contact No.</th>
+          <th>Age</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users()">
+          <td>{{ user.name }}</td>
+          <td>{{ user.contactNumber }}</td>
+          <td>{{ user.age }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- end: example 3 -->
+</div>
