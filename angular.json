@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/signal-project",
+            "outputPath": "dist/signal-project/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -52,7 +52,7 @@
             },
             "development": {
               "buildOptimizer": false,
-              "optimization": false,
+              "optimization": true,
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
@@ -97,6 +97,61 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/signal-project/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json",
+            "inlineStyleLanguage": "scss"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": true,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "signal-project:build:development",
+              "serverTarget": "signal-project:server:development"
+            },
+            "production": {
+              "browserTarget": "signal-project:build:production",
+              "serverTarget": "signal-project:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "signal-project:build:production",
+              "serverTarget": "signal-project:server:production"
+            },
+            "development": {
+              "browserTarget": "signal-project:build:development",
+              "serverTarget": "signal-project:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
